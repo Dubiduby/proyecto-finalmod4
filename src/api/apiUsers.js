@@ -35,23 +35,22 @@ export async function createNewUser(user) {
 // Navegar a home
 // navigate("/home");
 
-
 // get User
 
 export async function getUsers() {
-    const url = `${baseUrl}/users`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Error in getAllUsers request")
-        }
-        const users = await response.json();
-        console.log(users); 
-        listarUsuarios(users)
-        // return allUsers;
-    } catch (error) {
-        console.error("Error")
+  const url = `${baseUrl}/users`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Error in getAllUsers request");
     }
+    const users = await response.json();
+    console.log(users);
+    listarUsuarios(users);
+    // return allUsers;
+  } catch (error) {
+    console.error("Error");
+  }
 }
 
 //------------------------
@@ -76,7 +75,7 @@ export async function editUser(id, userData) {
         email: userData.email,
         password: userData.password,
         island: userData.island,
-      })
+      }),
     });
 
     if (!response.ok) {
@@ -89,4 +88,12 @@ export async function editUser(id, userData) {
   } catch (error) {
     console.error(error);
   }
+}
+
+//obtener favorito de usuarios----------------------------------------------------------------
+// Función mock temporal para obtener favoritos
+// ⚠️ Aquí solo devuelve un array vacío, debe ser reemplazada por la función real que
+// consulte favoritos en MockAPI y devuelva un array de movieIds
+export async function getUserFavorites() {
+  return [];
 }

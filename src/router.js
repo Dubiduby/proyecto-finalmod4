@@ -5,6 +5,7 @@ import { Profile } from "./views/profile.js";
 import { MovieDetail } from "./views/movieDetail.js";
 import { NotFound } from "./views/notFound.js";
 import { getCurrentUser } from "./api/apiUsers.js";
+import { getUserFavorites } from "./api/apiUsers.js";
 
 const routes = {
   "/": Home,
@@ -18,7 +19,7 @@ const routes = {
 
 const publicPaths = ["/login", "/signup", "/", "/user/:id"]; // páginas publicas con acceso sin estar logeado
 
-export function router() {
+export async function router() {
   const path = window.location.pathname;
   const currentUser = getCurrentUser();
 
@@ -41,9 +42,21 @@ export function router() {
     return;
   }
 
+  // Función mock temporal para alternar favorito
+  // ⚠️ Aquí solo hace un console.log, debe ser reemplazada por la función que actualice
+  // MockAPI y refresque la vista
+  function onToggleFavorite(movieId) {
+    console.log("Mock toggle favorito:", movieId);
+  }
+
   // Rutas estáticas
   if (routes[path]) {
-    routes[path](container);
+    if (path === "/") {
+      const favoriteIds = await getUserFavorites(); // array vacío temporal hasta tener logica de favoritos
+      Home(container, favoriteIds, onToggleFavorite);
+    } else {
+      routes[path](container);
+    }
     return;
   }
 
